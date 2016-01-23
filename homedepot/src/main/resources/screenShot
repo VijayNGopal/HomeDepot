@@ -1,0 +1,35 @@
+// single 
+public void ScreenShoot() throws IOException{
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(source,new File("./ScreenShots/signInHeader.png"));	
+	}
+	
+// Multi usage 
+
+public static void captureScreenShot(WebDriver driver, String screenShotName){
+  try{
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(source,new File("./foldername/"+screenShotName+".png"));	
+		System.out.println("Screen Shot taken");
+		}
+		{
+		  catch(Exception e)
+		  System.out.println("This an exception" + e.getMessage());
+		}
+	}
+
+// Taking ScreenShot ONLY for Failed Tests
+
+  public void testFail(ITestResult result){
+  
+    if(ITestResult.FAILURE ==reult.getStatus())
+    {
+      Utility.captureScreenShot(driver,result.getName()); // getName is testcasename(testFail) and 
+      													  // utility is my static class AND captureScreenShot method name; 	
+    }
+  
+  }
+  
+  

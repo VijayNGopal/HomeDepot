@@ -1,0 +1,64 @@
+   
+Mouse_Hover
+One way of doing this is by using Action class:
+public class mouseHover{
+ 
+	public static WebDriver driver;
+ 
+   public static void main(String[] args) {
+ 
+        driver = new FirefoxDriver();
+ 
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+ 
+        driver.get("http://www.onlinestore.toolsqa.com");
+ 
+        WebElement element = driver.findElement(By.linkText("Product Category"));
+ 
+        Actions action = new Actions(driver);
+ 
+        action.moveToElement(element).build().perform();
+ 
+        driver.findElement(By.linkText("iPads")).click();
+ 
+        }
+}
+======================
+It can be done differently like this:
+ 	WebElement element = driver.findElement(By.linkText("Product Category"));
+    Actions action = new Actions(driver);
+	action.moveToElement(element).moveToElement(driver.findElement(By.linkText("iPads")))
+	.click().build().perform();
+==================================
+With some of the browser it happens that once mouse hover action is performed, the menu list disappear 
+with in the fractions of seconds before Selenium identify the next submenu item and perform click action 
+on it. In that case it is better to use ‘perform()’ action on the main menu to hold the menu list till 
+the time Selenium identify the sub menu item and click on it.
+	
+	WebElement element = driver.findElement(By.linkText("Product Category"));
+
+        Actions action = new Actions(driver);
+
+        action.moveToElement(element).perform();
+
+        WebElement subElement = driver.findElement(By.linkText("iPads"));
+
+        action.moveToElement(subElement);
+
+        action.click();
+
+        action.perform();
+ ==============================================		
+ 
+ 	// Mouse Hover
+	/*
+	 * public void hoverItem(WebElement element){ Actions actions = new
+	 * Actions(driver); actions.moveToElement(element); actions.perform(); }
+	 * public void hoverItem(By by){ WebElement element =
+	 * driver.findElement(by); hoverItem(element) ; }
+	 * 
+	 * public void hoverItemEx(WebElement element){ Locatable hoverItem =
+	 * (Locatable) element; Mouse mouse = ((HasInputDevices) driver).getMouse();
+	 * mouse.mouseMove(hoverItem.getCoordinates()); } public void hoverItemEx(By
+	 * by){ WebElement element = driver.findElement(by); hoverItemEx(element); }
+	 */

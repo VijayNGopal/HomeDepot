@@ -1,0 +1,53 @@
+// Need TSCC® Codec installed
+	// from http://www.techsmith.com/download.html
+	
+	
+    private String name;
+ 
+    public SpecializedScreenRecorder(GraphicsConfiguration cfg,
+           Rectangle captureArea, Format fileFormat, Format screenFormat,
+           Format mouseFormat, Format audioFormat, File movieFolder,
+           String name) throws IOException, AWTException {
+         super(cfg, captureArea, fileFormat, screenFormat, mouseFormat,
+                  audioFormat, movieFolder);
+         this.name = name;
+    }
+ 
+    @Override
+    protected File createMovieFile(Format fileFormat) throws IOException {
+          if (!movieFolder.exists()) {
+                movieFolder.mkdirs();
+          } else if (!movieFolder.isDirectory()) {
+                throw new IOException("\"" + movieFolder + "\" is not a directory.");
+          }
+                           
+          SimpleDateFormat dateFormat = new SimpleDateFormat(
+                   "yyyy-MM-dd HH.mm.ss");
+                         
+          return new File(movieFolder, name + "-" + dateFormat.format(new Date()) + "."
+                  + Registry.getInstance().getExtension(fileFormat));
+    }
+    
+    ---------------------------------------------------------------------------------
+    try{
+  //the below statement will throw an exception as the element is not found, Catch block will get executed 
+  and takes the screenshot.
+    		  driver.findElement(By.id("testing")).sendKeys("test");
+                 
+ //if we remove the below comment, it will not return exception and screen shot method will not get executed.
+    		  //driver.findElement(By.id("gbqfq")).sendKeys("test");
+    	  }
+    	  catch (Exception e){
+    		  System.out.println("I'm in exception");
+//calls the method to take the screenshot.
+    		  getscreenshot();
+     	  }
+      }
+      
+      public void getscreenshot() throws Exception 
+      {
+              File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+           //The below method will save the screen shot in d drive with name "screenshot.png"
+              FileUtils.copyFile(scrFile, new File("D:\\screenshot.png"));
+      }
+    

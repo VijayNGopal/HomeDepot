@@ -1,0 +1,13 @@
+Select shotBy = new Select(dirver.findElement.By.Xpath(""));
+List oSize = = shotBy.getOption();
+System.out.println("Total item:" + oSize.size());
+for(int i = 0; i<oSize.size(); i++)
+	{
+	  String value =  shotBy.getOption().get(i).getText();
+	  System.out.println(value);
+	  if(value.equals("name of object")){
+	  shotBy.selectbyVisibleText("name of object");
+	  
+	  
+	}
+	}

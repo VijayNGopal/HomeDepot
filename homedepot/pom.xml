@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.homedepot</groupId>
+	<artifactId>homedepot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SeleniumWebDriverHomeDepot</name>
+	<description>Project of HomeDepot</description>
+	<properties>
+		<selenium.version>2.48.2</selenium.version>
+		<selenium-server.vesion>2.48.2</selenium-server.vesion>
+		<selenium.testng>6.9.4</selenium.testng>
+	</properties>
+
+	<dependencies>
+	   <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-firefox-driver</artifactId>
+        <version>2.48.2</version>
+    </dependency>  
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${selenium.testng}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.seleniumhq.selenium</groupId>
+  			<artifactId>selenium-server</artifactId>
+  			<version>${selenium-server.vesion}</version>
+		</dependency>
+		
+	</dependencies>
+ 
+</project>

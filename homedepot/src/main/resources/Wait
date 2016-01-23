@@ -1,0 +1,105 @@
+WebDriver Wait Commands
+
+WebDriver.manage().timeouts()
+
+implicitlyWait
+
+[sourcecode language=”java”]
+WebDriver driver = new FirefoxDriver();
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.get("http://somedomain/url_that_delays_loading");
+WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
+[/sourcecode]
+
+
+The ImplicitWait will tell the webDriver to poll the DOM for a certain duration when trying to find the 
+element, this will be useful when certain elements on the webpage will not be available immediately and 
+needs some time to load.
+By default it ill take the value to 0, for the life of the WebDriver object instance through out the test 
+script.
+
+pageLoadTimeout
+
+[sourcecode language=”java”]
+driver.manage().timeouts().pageLoadTimeout(100, SECONDS);
+[/sourcecode]
+Sets the amount of time to wait for a page load to complete before throwing an error. If the timeout 
+is negative, page loads can be indefinite.
+
+setScriptTimeout
+
+[sourcecode language=”java”]
+driver.manage().timeouts().setScriptTimeout(100,SECONDS);
+[/sourcecode]
+Sets the amount of time to wait for an asynchronous script to finish execution before throwing an error.
+If the timeout is negative, then the script will be allowed to run indefinitely.
+
+Support.ui
+
+FluentWait
+
+[sourcecode language=”java”]
+// Waiting 30 seconds for an element to be present on the page, checking
+// for its presence once every 5 seconds.
+Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+.withTimeout(30, SECONDS)
+.pollingEvery(5, SECONDS)
+.ignoring(NoSuchElementException.class);
+
+WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+public WebElement apply(WebDriver driver) {
+return driver.findElement(By.id("foo"));
+}
+});
+
+[/sourcecode]
+Each FluentWait instance defines the maximum amount of time to wait for a condition, as well as the frequency
+ with which to check the condition. Furthermore, the user may configure the wait to ignore specific types of 
+exceptions whilst waiting, such as NoSuchElementExceptions when searching for an element on the page.
+
+ExpectedConditions
+[sourcecode language=”java”]
+WebDriverWait wait = new WebDriverWait(driver, 10);
+WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
+[/sourcecode]
+Models a condition that might reasonably be expected to eventually evaluate to something that is neither
+null nor false.
+
+Examples : Would include determining if a web page has loaded or that an element is visible.
+Note that it is expected that ExpectedConditions are idempotent. They will be called in a loop by 
+the WebDriverWait and any modification of the state of the application under test may have unexpected 
+side-effects.
+
+WebDriverWait will be used as we used in the Expected conditions code snippet as above.
+
+
+sleeper is something same as the Thread.sleep() method, but this with an Abstraction around the 
+thread.sleep() for better testability
+
+
+
+// Explicit Wait
+/*
+	Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+			.withTimeout(30, SECONDS).pollingEvery(5, SECONDS)
+			.ignoring(NoSuchElementException.class);
+
+	WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+		public WebElement apply(WebDriver driver) {
+			return driver.findElement(By.id("foo"));
+		}
+	});
+*/
+	// java executor
+	/*
+	 * public void jsClick(WebElement string){ ((JavascriptExecutor)
+	 * driver).executeScript("arguments[0].click()", string); }
+	 * 
+	 * public void highlightElement(WebElement element) { for (int i = 0; i < 2;
+	 * i++) { JavascriptExecutor js = (JavascriptExecutor) driver;
+	 * js.executeScript( "arguments[0].setAttribute('style', arguments[1]);",
+	 * element, "color: yellow; border: 2px solid yellow;"); delayFor(200);
+	 * js.executeScript( "arguments[0].setAttribute('style', arguments[1]);",
+	 * element, ""); } }
+	 */
+
